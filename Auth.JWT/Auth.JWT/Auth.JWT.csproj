@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Auth.JWT is a Json Web Token helper module. 
+Auth.JWT is mainly used to implement JWT in the Asp.Net Core application like Micro services, Web API, ML.Net etc.</Description>
+    <Copyright>Copyright 2019 Sambeet Das</Copyright>
+    <PackageReleaseNotes>Beta Release
+
+Following is the user manual
+https://onedrive.live.com/view.aspx?resid=486012D5B6195717!499&amp;ithint=file%2cdocx&amp;authkey=!Akn7No6YyHS--AE</PackageReleaseNotes>
+    <PackageLicenseUrl />
+    <Company>Sambeet</Company>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <NeutralLanguage></NeutralLanguage>
+    <Version>1.0.3</Version>
+    <PackageProjectUrl>https://onedrive.live.com/view.aspx?resid=486012D5B6195717!499&amp;ithint=file%2cdocx&amp;authkey=!Akn7No6YyHS--AE</PackageProjectUrl>
+    <Authors>Sambeet</Authors>
+    <PackageTags>JWT</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+</Project>
