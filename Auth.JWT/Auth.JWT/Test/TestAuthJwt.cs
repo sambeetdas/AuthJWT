@@ -22,12 +22,12 @@ namespace Auth.JWT.Test
         public void Execute()
         {
             string issuer = "issuer";
-            string expirySeconds = "10";
+            string expirySeconds = "1000";
             string secrect = "F4760D";
 
             _reqModel.issuer = issuer;
             _reqModel.expiryInSeconds = expirySeconds;
-            var result = _module.CreateToken(_reqModel, secrect, AlgorithmType.SHA1);
+            var result = _module.CreateToken(_reqModel, secrect, AlgorithmType.SHA256);
 
             Console.WriteLine("************* Create Token Result***************");
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
