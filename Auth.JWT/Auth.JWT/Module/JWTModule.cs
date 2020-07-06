@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Auth.JWT.Model;
+using Common;
 using Handler.Implementation;
 using Handler.Interface;
 using Model;
@@ -14,11 +15,11 @@ namespace Auth.JWT
     {
         IJwtHandler jwtHandler = new JwtHandler();
 
-        public TokenResponseModel CreateToken(TokenRequestModel reqModel, string secret)
+        public TokenResponseModel CreateToken(TokenRequestModel reqModel, string secret, string algorithmKey)
         {
             Util.ErrorMessage = string.Empty;
             dynamic payload = jwtHandler.BuildPayload(reqModel);
-            string jwtToken = jwtHandler.CreateToken(payload, secret);
+            string jwtToken = jwtHandler.CreateToken(payload, secret, algorithmKey);
             var result = jwtHandler.BuildResponse(jwtToken);
             return result;
         }

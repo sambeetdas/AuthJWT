@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Auth.JWT.Model;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Handler.Interface
     interface IJwtHandler
     {
         dynamic BuildPayload(TokenRequestModel reqModel);
-        string CreateToken(dynamic payLoad, string secret);
+        string CreateToken(dynamic payLoad, string secret, string algorithmKey);
         string EncryptToken(string jwtToken, string encryptionKey);
         TokenResponseModel BuildResponse(string token);
         string DecryptToken(string encryptedToken, string encryptionKey);

@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Auth.JWT.Common;
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -141,11 +142,47 @@ namespace Common
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
+        internal static string ComputeSha1Hash(string str, string key)
+        {
+            var encoding = new ASCIIEncoding();
+            byte[] signature;
+            using (var crypto = new HMACSHA1(encoding.GetBytes(key)))
+            {
+                signature = crypto.ComputeHash(encoding.GetBytes(str));
+            }
+
+            return System.Convert.ToBase64String(signature);
+        }
+
         internal static string ComputeSha256Hash(string str, string key)
         {
             var encoding = new ASCIIEncoding();
             byte[] signature;
             using (var crypto = new HMACSHA256(encoding.GetBytes(key)))
+            {
+                signature = crypto.ComputeHash(encoding.GetBytes(str));
+            }
+
+            return System.Convert.ToBase64String(signature);
+        }
+
+        internal static string ComputeSha384Hash(string str, string key)
+        {
+            var encoding = new ASCIIEncoding();
+            byte[] signature;
+            using (var crypto = new HMACSHA384(encoding.GetBytes(key)))
+            {
+                signature = crypto.ComputeHash(encoding.GetBytes(str));
+            }
+
+            return System.Convert.ToBase64String(signature);
+        }
+
+        internal static string ComputeSha512Hash(string str, string key)
+        {
+            var encoding = new ASCIIEncoding();
+            byte[] signature;
+            using (var crypto = new HMACSHA512(encoding.GetBytes(key)))
             {
                 signature = crypto.ComputeHash(encoding.GetBytes(str));
             }
@@ -164,6 +201,27 @@ namespace Common
                 Util.ErrorMessage += ", " + error;
             }
             
+        }
+
+        internal static void ComputeAlgorithm(string algoritmType, ref Handler.Implementation.JwtHandler.AlgorithDelegate algoritmFunction)
+        {
+            switch (algoritmType)
+            {
+                case AlgorithmType.SHA1:
+                    algoritmFunction = ComputeSha1Hash;
+                    break;
+                case AlgorithmType.SHA256:
+                    algoritmFunction = ComputeSha256Hash;
+                    break;
+                case AlgorithmType.SHA384:
+                    algoritmFunction = ComputeSha384Hash;
+                    break;
+                case AlgorithmType.SHA512:
+                    algoritmFunction = ComputeSha512Hash;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

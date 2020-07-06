@@ -6,11 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Auth.JWT.Model;
+using Auth.JWT.Common;
 
 namespace Handler.Implementation
 {
     class JwtHandler : IJwtHandler
     {
+        public delegate string AlgorithDelegate(string str, string key);
         dynamic IJwtHandler.BuildPayload(TokenRequestModel reqModel)
         {
             JwtPayload jwtModel = new JwtPayload();            
@@ -36,20 +39,27 @@ namespace Handler.Implementation
             return jwtModel;
         }
 
-        string IJwtHandler.CreateToken(dynamic payLoad, string secret)
+        string IJwtHandler.CreateToken(dynamic payLoad, string secret, string algorithmKey)
         {
             try
             {
+                string algoritmType = AlgorithmType.SHA256;
+                if (!String.IsNullOrWhiteSpace(algorithmKey))
+                {
+                    algoritmType = algorithmKey;
+                }                
+                AlgorithDelegate algoritmFunction = Util.ComputeSha256Hash;
+                Util.ComputeAlgorithm(algoritmType, ref algoritmFunction);
                 var header = new JwtHeader
                 {
                     Typ = AppConstant.Type,
-                    Alg = AppConstant.Alg
+                    Alg = algoritmType
                 };
 
                 string jwt = Util.Base64Encode(JsonConvert.SerializeObject(header))
                     + "."
                     + Util.Base64Encode(JsonConvert.SerializeObject(payLoad));
-                jwt += "." + Util.ComputeSha256Hash(jwt, secret);
+                jwt += "." + algoritmFunction(jwt, secret);
 
                 return jwt;
             }
@@ -98,7 +108,7 @@ namespace Handler.Implementation
             JwtHeader headerObj = new JwtHeader();
 
             try
-            {
+            {            
                 string[] arr = token.Split('.');
                 string strHeader = Util.Base64Decode(arr[0]);
                 string strPayload = Util.Base64Decode(arr[1]);
@@ -107,10 +117,15 @@ namespace Handler.Implementation
                 headerObj = JsonConvert.DeserializeObject<JwtHeader>(strHeader);
                 payloadObj = JsonConvert.DeserializeObject<JwtPayload>(strPayload);
 
+                string algoritmType = headerObj.Alg;
+                AlgorithDelegate algoritmFunction = Util.ComputeSha256Hash;
+
+                Util.ComputeAlgorithm(algoritmType, ref algoritmFunction);
+
                 var strHashInput = Util.Base64Encode(JsonConvert.SerializeObject(headerObj))
                     + "."
                     + Util.Base64Encode(JsonConvert.SerializeObject(payloadObj));
-                string generateHash = Util.ComputeSha256Hash(strHashInput, secret);
+                string generateHash = algoritmFunction(strHashInput, secret);
 
                 if (strSignatureHashed != generateHash)
                 {
