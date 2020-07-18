@@ -1,19 +1,19 @@
-﻿using Handler.Interface;
+﻿ using Handler.Interface;
 using Common;
 using Model;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Auth.JWT.Model;
 using Auth.JWT.Common;
+using System.Linq;
 
 namespace Handler.Implementation
 {
     class JwtHandler : IJwtHandler
     {
-        public delegate string AlgorithDelegate(string str, string key);
+        internal delegate string AlgorithDelegate(string str, string key);
         dynamic IJwtHandler.BuildPayload(TokenRequestModel reqModel)
         {
             JwtPayload jwtModel = new JwtPayload();            
@@ -29,12 +29,7 @@ namespace Handler.Implementation
                 jwtModel.aud = reqModel.Audience;
                 jwtModel.jwtId = reqModel.JwtId;
                 jwtModel.subject = reqModel.Subject;
-                jwtModel.customField1 = reqModel.CustomField1;
-                jwtModel.customField2 = reqModel.CustomField2;
-                jwtModel.customField3 = reqModel.CustomField3;
-                jwtModel.customField4 = reqModel.CustomField4;
-                jwtModel.customField5 = reqModel.CustomField5;
-                
+                jwtModel.customProperty = Util.ConvertObjectToJson(reqModel.CustomProperty);                
             }
             catch (Exception ex)
             {
@@ -60,9 +55,9 @@ namespace Handler.Implementation
                     Alg = algoritmType
                 };
 
-                string jwt = Util.Base64Encode(JsonConvert.SerializeObject(header))
+                string jwt = Util.Base64Encode(Util.ConvertObjectToJson(header))
                     + "."
-                    + Util.Base64Encode(JsonConvert.SerializeObject(payLoad));
+                    + Util.Base64Encode(Util.ConvertObjectToJson(payLoad));
                 jwt += "." + algoritmFunction(jwt, secret);
 
                 return jwt;
@@ -118,17 +113,17 @@ namespace Handler.Implementation
                 string strPayload = Util.Base64Decode(arr[1]);
                 string strSignatureHashed = arr[2];
 
-                headerObj = JsonConvert.DeserializeObject<JwtHeader>(strHeader);
-                payloadObj = JsonConvert.DeserializeObject<JwtPayload>(strPayload);
+                headerObj = Util.ConvertJsonToObject<JwtHeader>(strHeader);
+                payloadObj = Util.ConvertJsonToObject<JwtPayload>(strPayload);
 
                 string algoritmType = headerObj.Alg;
                 AlgorithDelegate algoritmFunction = Util.ComputeSha256Hash;
 
                 Util.ComputeAlgorithm(algoritmType, ref algoritmFunction);
 
-                var strHashInput = Util.Base64Encode(JsonConvert.SerializeObject(headerObj))
+                var strHashInput = Util.Base64Encode(Util.ConvertObjectToJson(headerObj))
                     + "."
-                    + Util.Base64Encode(JsonConvert.SerializeObject(payloadObj));
+                    + Util.Base64Encode(Util.ConvertObjectToJson(payloadObj));
                 string generateHash = algoritmFunction(strHashInput, secret);
 
                 if (strSignatureHashed != generateHash)
@@ -159,31 +154,44 @@ namespace Handler.Implementation
                 {
                     if (!String.IsNullOrWhiteSpace(validateModel.Issuer) && validateModel.Issuer != payloadObj.iss)
                     {
-                        Util.ErrorBuilder("Issuer in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("Issuer mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.User) && validateModel.User != payloadObj.user)
                     {
-                        Util.ErrorBuilder("User in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("User mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.UserId) && validateModel.UserId != payloadObj.userId)
                     {
-                        Util.ErrorBuilder("User Id in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("UserId mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.Role) && validateModel.Role != payloadObj.role)
                     {
-                        Util.ErrorBuilder("Role in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("Role mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.Audience) && validateModel.Audience != payloadObj.aud)
                     {
-                        Util.ErrorBuilder("Audience in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("Audience mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.JwtId) && validateModel.JwtId != payloadObj.jwtId)
                     {
-                        Util.ErrorBuilder("JwtId in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("JwtId mismatch");
                     }
                     if (!String.IsNullOrWhiteSpace(validateModel.Subject) && validateModel.Subject != payloadObj.subject)
                     {
-                        Util.ErrorBuilder("Subject in the token and ValidateModel mismatch.");
+                        Util.ErrorBuilder("Subject mismatch");
+                    }
+                    if (validateModel.CustomProperty != null && !String.IsNullOrWhiteSpace(payloadObj.customProperty))
+                    {
+                        var payLoadCustomProperty = Util.ConvertJsonToObject<Dictionary<string, string>>(payloadObj.customProperty);
+                        var CompareResult = validateModel.CustomProperty.Except(payLoadCustomProperty).ToDictionary(x => x.Key, x => x.Value);
+                        if (CompareResult != null && CompareResult.Count > 0)
+                        {
+                            foreach (var customKey in CompareResult)
+                            {
+                                Util.ErrorBuilder($"CustomProperty: '{customKey.Key}' mismatch");
+                            }
+                            
+                        }
                     }
                 }
             }

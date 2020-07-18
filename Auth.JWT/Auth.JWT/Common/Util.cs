@@ -1,8 +1,5 @@
 ﻿using Auth.JWT.Common;
-using Model;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -130,6 +127,20 @@ namespace Common
             return b;
         }
 
+        #region Json Serialization_Deserialization
+        internal static string ConvertObjectToJson(dynamic obj)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+        }
+
+        internal static T ConvertJsonToObject<T>(string json)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
+        }
+
+        #endregion
+
+        #region Encode_Decode
         internal static string Base64Encode(string plainText)
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
@@ -142,6 +153,9 @@ namespace Common
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
+        #endregion
+
+        #region Algorithm
         internal static string ComputeSha1Hash(string str, string key)
         {
             var encoding = new ASCIIEncoding();
@@ -189,6 +203,8 @@ namespace Common
 
             return System.Convert.ToBase64String(signature);
         }
+
+        #endregion
 
         internal static void ErrorBuilder(string error)
         {

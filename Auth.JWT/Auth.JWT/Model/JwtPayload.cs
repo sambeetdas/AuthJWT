@@ -15,10 +15,6 @@ namespace Model
         public string aud { get; set; }
         public string jwtId { get; set; }
         public string subject { get; set; }
-        public string customField1 { get; set; }
-        public string customField2 { get; set; }
-        public string customField3 { get; set; }
-        public string customField4 { get; set; }
-        public string customField5 { get; set; }
+        public string customProperty { get; set; }
     }
 }

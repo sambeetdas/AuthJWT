@@ -112,7 +112,7 @@
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
-    "version": "1.0.3",
+    "version": "1.0.7",
     "restore": {
       "projectUniqueName": "C:\\Epsilon\\POC\\MyGITRepository\\Dot_Net\\AuthJWT\\Auth.JWT\\Auth.JWT\\Auth.JWT.csproj",
       "projectName": "Auth.JWT",

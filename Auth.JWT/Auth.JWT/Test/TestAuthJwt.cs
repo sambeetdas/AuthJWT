@@ -31,6 +31,8 @@ namespace Auth.JWT.Test
             _reqModel.Audience = "authjwt_app";
             _reqModel.JwtId = "J4433421";
             _reqModel.Subject = "authjwt_subject";
+            _reqModel.CustomProperty.Add("CustomField1","auth_custom1");
+            _reqModel.CustomProperty.Add("CustomField2", "auth_custom2");
 
             var result = _module.CreateToken(_reqModel, secrect, AlgorithmType.SHA256);
 
@@ -44,6 +46,8 @@ namespace Auth.JWT.Test
             _validateModel.Audience = "authjwt_app";
             _validateModel.JwtId = "J4433421";
             _validateModel.Subject = "authjwt_subject";
+            _validateModel.CustomProperty.Add("CustomField1", "auth_custom1");
+            _validateModel.CustomProperty.Add("CustomField2", "auth_custom2");
 
             var verifyResult = _module.VerifyToken(result.Content, secrect, _validateModel);
 
