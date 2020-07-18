@@ -114,11 +114,11 @@
   "project": {
     "version": "1.0.3",
     "restore": {
-      "projectUniqueName": "C:\\Epsilon\\POC\\MyGITRepository\\AuthJWT\\Auth.JWT\\Auth.JWT\\Auth.JWT.csproj",
+      "projectUniqueName": "C:\\Epsilon\\POC\\MyGITRepository\\Dot_Net\\AuthJWT\\Auth.JWT\\Auth.JWT\\Auth.JWT.csproj",
       "projectName": "Auth.JWT",
-      "projectPath": "C:\\Epsilon\\POC\\MyGITRepository\\AuthJWT\\Auth.JWT\\Auth.JWT\\Auth.JWT.csproj",
+      "projectPath": "C:\\Epsilon\\POC\\MyGITRepository\\Dot_Net\\AuthJWT\\Auth.JWT\\Auth.JWT\\Auth.JWT.csproj",
       "packagesPath": "C:\\Users\\sdas\\.nuget\\packages\\",
-      "outputPath": "C:\\Epsilon\\POC\\MyGITRepository\\AuthJWT\\Auth.JWT\\Auth.JWT\\obj\\",
+      "outputPath": "C:\\Epsilon\\POC\\MyGITRepository\\Dot_Net\\AuthJWT\\Auth.JWT\\Auth.JWT\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

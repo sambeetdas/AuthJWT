@@ -20,16 +20,20 @@ namespace Handler.Implementation
             try
             {
                 DateTime currentDateTime = DateTime.UtcNow;
-                jwtModel.iss = reqModel.issuer;
+                jwtModel.iss = reqModel.Issuer;
                 jwtModel.iat = currentDateTime.ToString("yyyyMMddHHmmssfff");
-                jwtModel.exp = currentDateTime.AddSeconds(Convert.ToDouble(reqModel.expiryInSeconds)).ToString("yyyyMMddHHmmssfff");
-                jwtModel.user = reqModel.user;
-                jwtModel.role = reqModel.role;
-                jwtModel.customField1 = reqModel.customField1;
-                jwtModel.customField2 = reqModel.customField2;
-                jwtModel.customField3 = reqModel.customField3;
-                jwtModel.customField4 = reqModel.customField4;
-                jwtModel.customField5 = reqModel.customField5;
+                jwtModel.exp = currentDateTime.AddSeconds(Convert.ToDouble(reqModel.ExpiryInSeconds)).ToString("yyyyMMddHHmmssfff");
+                jwtModel.userId = reqModel.UserId;
+                jwtModel.user = reqModel.User;
+                jwtModel.role = reqModel.Role;
+                jwtModel.aud = reqModel.Audience;
+                jwtModel.jwtId = reqModel.JwtId;
+                jwtModel.subject = reqModel.Subject;
+                jwtModel.customField1 = reqModel.CustomField1;
+                jwtModel.customField2 = reqModel.CustomField2;
+                jwtModel.customField3 = reqModel.CustomField3;
+                jwtModel.customField4 = reqModel.CustomField4;
+                jwtModel.customField5 = reqModel.CustomField5;
                 
             }
             catch (Exception ex)
@@ -153,17 +157,33 @@ namespace Handler.Implementation
 
                 if (validateModel != null)
                 {
-                    if (!String.IsNullOrWhiteSpace(validateModel.issuer) && validateModel.issuer != payloadObj.iss)
+                    if (!String.IsNullOrWhiteSpace(validateModel.Issuer) && validateModel.Issuer != payloadObj.iss)
                     {
                         Util.ErrorBuilder("Issuer in the token and ValidateModel mismatch.");
                     }
-                    if (!String.IsNullOrWhiteSpace(validateModel.user) && validateModel.user != payloadObj.user)
+                    if (!String.IsNullOrWhiteSpace(validateModel.User) && validateModel.User != payloadObj.user)
                     {
                         Util.ErrorBuilder("User in the token and ValidateModel mismatch.");
                     }
-                    if (!String.IsNullOrWhiteSpace(validateModel.role) && validateModel.role != payloadObj.role)
+                    if (!String.IsNullOrWhiteSpace(validateModel.UserId) && validateModel.UserId != payloadObj.userId)
+                    {
+                        Util.ErrorBuilder("User Id in the token and ValidateModel mismatch.");
+                    }
+                    if (!String.IsNullOrWhiteSpace(validateModel.Role) && validateModel.Role != payloadObj.role)
                     {
                         Util.ErrorBuilder("Role in the token and ValidateModel mismatch.");
+                    }
+                    if (!String.IsNullOrWhiteSpace(validateModel.Audience) && validateModel.Audience != payloadObj.aud)
+                    {
+                        Util.ErrorBuilder("Audience in the token and ValidateModel mismatch.");
+                    }
+                    if (!String.IsNullOrWhiteSpace(validateModel.JwtId) && validateModel.JwtId != payloadObj.jwtId)
+                    {
+                        Util.ErrorBuilder("JwtId in the token and ValidateModel mismatch.");
+                    }
+                    if (!String.IsNullOrWhiteSpace(validateModel.Subject) && validateModel.Subject != payloadObj.subject)
+                    {
+                        Util.ErrorBuilder("Subject in the token and ValidateModel mismatch.");
                     }
                 }
             }

@@ -6,13 +6,17 @@ namespace Model
 {
     public class ValidateModel
     {
-        public string issuer { get; set; }
-        public string user { get; set; }
-        public string role { get; set; }
-        public string customField1 { get; set; }
-        public string customField2 { get; set; }
-        public string customField3 { get; set; }
-        public string customField4 { get; set; }
-        public string customField5 { get; set; }
+        public string Issuer { get; set; }
+        public string UserId { get; set; }
+        public string User { get; set; }
+        public string Role { get; set; }
+        public string Audience { get; set; }
+        public string JwtId { get; set; }
+        public string Subject { get; set; }
+        public string CustomField1 { get; set; }
+        public string CustomField2 { get; set; }
+        public string CustomField3 { get; set; }
+        public string CustomField4 { get; set; }
+        public string CustomField5 { get; set; }
     }
 }
