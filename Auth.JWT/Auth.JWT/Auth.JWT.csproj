@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Auth.JWT is a Json Web Token helper module. 
@@ -14,9 +14,9 @@ https://1drv.ms/b/s!AhdXGbbVEmBIhAkDCzDoqnpuWdvP?e=7SdFq8</PackageReleaseNotes>
     <PackageLicenseUrl />
     <Company>Sambeet</Company>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.7</FileVersion>
+    <FileVersion>1.0.0.8</FileVersion>
     <NeutralLanguage></NeutralLanguage>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <PackageProjectUrl>https://1drv.ms/b/s!AhdXGbbVEmBIhAkDCzDoqnpuWdvP?e=7SdFq8</PackageProjectUrl>
     <Authors>Sambeet</Authors>
     <PackageTags>JWT, .Net, .Net Core, C#, WebAPI, MVC</PackageTags>
