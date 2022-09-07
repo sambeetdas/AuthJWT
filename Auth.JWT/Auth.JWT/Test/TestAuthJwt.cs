@@ -21,7 +21,7 @@ namespace Auth.JWT.Test
         }
         public void Execute()
         {
-            string secrect = "F4760D";
+            string secret = "F4760D";
 
             _reqModel.Issuer = "authjwt_team";
             _reqModel.ExpiryInSeconds = "1000";
@@ -34,7 +34,7 @@ namespace Auth.JWT.Test
             _reqModel.CustomProperty.Add("CustomField1","auth_custom1");
             _reqModel.CustomProperty.Add("CustomField2", "auth_custom2");
 
-            var result = _module.CreateToken(_reqModel, secrect, AlgorithmType.SHA256);
+            var result = _module.CreateToken(_reqModel, secret, AlgorithmType.SHA256);
 
             Console.WriteLine("************* Create Token Result***************");
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
@@ -49,7 +49,7 @@ namespace Auth.JWT.Test
             _validateModel.CustomProperty.Add("CustomField1", "auth_custom1");
             _validateModel.CustomProperty.Add("CustomField2", "auth_custom2");
 
-            var verifyResult = _module.VerifyToken(result.Content, secrect, _validateModel);
+            var verifyResult = _module.VerifyToken(result.Content, secret, _validateModel);
 
             Console.WriteLine("************* Verify Token Result***************");
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(verifyResult));

@@ -29,6 +29,25 @@ namespace Auth.JWT.Test
             return reqModel;
         }
 
+        public static TokenRequestModel GetTokenRequestModel_Expiration(string expiryInSeconds)
+        {
+            TokenRequestModel reqModel = new TokenRequestModel()
+            {
+                Issuer = "authjwt_team",
+                ExpiryInSeconds = expiryInSeconds,
+                UserId = "U132432",
+                User = "sambeet",
+                Role = "admin",
+                Audience = "authjwt_app",
+                JwtId = "J4433421",
+                Subject = "authjwt_subject",
+                CustomProperty = new Dictionary<string, string>()
+            };
+            reqModel.CustomProperty.Add("CustomField1", "auth_custom1");
+            reqModel.CustomProperty.Add("CustomField2", "auth_custom2");
+            return reqModel;
+        }
+
         public static ValidateModel GetValidateModel_Positive()
         {
             ValidateModel validateModel = new ValidateModel()
@@ -47,12 +66,12 @@ namespace Auth.JWT.Test
             return validateModel;
         }
 
-        public static string GetJwtSecrect1()
+        public static string GetJwtSecret1()
         {
             return "F4760D";
         }
 
-        public static string GetJwtSecrect2()
+        public static string GetJwtSecret2()
         {
             return "M4760E";
         }
