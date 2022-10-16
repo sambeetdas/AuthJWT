@@ -6,7 +6,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Auth.JWT is a Json Web Token helper module. 
-Auth.JWT is mainly used to implement JWT in the Asp.Net Core application like Micro services, Web API, ML.Net etc.</Description>
+Auth.JWT is mainly used to implement JWT in the .Net Core application like Micro services, Web API, ML.Net etc.</Description>
     <Copyright>Copyright 2022 Sambeet Das</Copyright>
     <PackageReleaseNotes>Following is the user manual:
 -------------------------------------
@@ -18,10 +18,12 @@ https://1drv.ms/b/s!AhdXGbbVEmBIhAkDCzDoqnpuWdvP?e=7SdFq8</PackageReleaseNotes>
     <NeutralLanguage></NeutralLanguage>
     <Version>1.0.9</Version>
     <PackageProjectUrl>https://1drv.ms/b/s!AhdXGbbVEmBIhAkDCzDoqnpuWdvP?e=7SdFq8</PackageProjectUrl>
-    <Authors>Sambeet</Authors>
+    <Authors>Sambeet Das</Authors>
     <PackageTags>JWT, .Net, .Net Core, C#, WebAPI, MVC</PackageTags>
     <PackageIcon>authjwt.PNG</PackageIcon>
     <PackageIconUrl />
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +32,14 @@ https://1drv.ms/b/s!AhdXGbbVEmBIhAkDCzDoqnpuWdvP?e=7SdFq8</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="authjwt.PNG">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
