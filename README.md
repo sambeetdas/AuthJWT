@@ -1,4 +1,7 @@
+# Nuget Details
 
+### dotnet add package Auth.JWT
+### https://www.nuget.org/packages/Auth.JWT/
 
 # Auth JWT
 
